@@ -1,0 +1,7 @@
+*.bin
+gens
+lbound
+grid
+pointwise
+*.o
+__pycache__/

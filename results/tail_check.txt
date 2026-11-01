@@ -1,0 +1,14 @@
+records: 413980, max k 28653696, max g 795931
+generators <= K by divisor-count sieve: 413980
+generator list and g(k) confirmed
+A >= 0.508000047239  (A >= 0.508: True)
+B = sum pi(g(k)) = 3348506095
+X1=1e+13: ln X1=29.933606, F(X1) >= 4.331268e+9, 2B = 6.697012e+09, ratio 0.647, holds: False
+X1=2e+13: ln X1=30.626753, F(X1) >= 8.514828e+9, 2B = 6.697012e+09, ratio 1.271, holds: True
+X1=5e+13: ln X1=31.543044, F(X1) >= 2.081533e+10, 2B = 6.697012e+09, ratio 3.108, holds: True
+X1=1e+14: ln X1=32.236191, F(X1) >= 4.094096e+10, 2B = 6.697012e+09, ratio 6.113, holds: True
+X1=1e+15: ln X1=34.538776, F(X1) >= 3.878959e+11, 2B = 6.697012e+09, ratio 57.921, holds: True
+X1=1e+16: ln X1=36.841361, F(X1) >= 3.683514e+12, 2B = 6.697012e+09, ratio 550.023, holds: True
+real 61.63
+user 45.74
+sys 0.31

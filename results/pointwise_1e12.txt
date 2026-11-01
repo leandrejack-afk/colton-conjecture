@@ -1,0 +1,18 @@
+checkpoint n=1 T=1 pi=0 2T-pi=2
+checkpoint n=10 T=4 pi=4 2T-pi=4
+checkpoint n=100 T=16 pi=25 2T-pi=7
+checkpoint n=1000 T=92 pi=168 2T-pi=16
+checkpoint n=10000 T=665 pi=1229 2T-pi=101
+checkpoint n=100000 T=5257 pi=9592 2T-pi=922
+checkpoint n=1000000 T=44705 pi=78498 2T-pi=10912
+checkpoint n=10000000 T=394240 pi=664579 2T-pi=123901
+checkpoint n=100000000 T=3558181 pi=5761455 2T-pi=1354907
+checkpoint n=1000000000 T=32608999 pi=50847534 2T-pi=14370464
+checkpoint n=10000000000 T=302172507 pi=455052511 2T-pi=149292503
+checkpoint n=100000000000 T=2823898245 pi=4118054813 2T-pi=1529741677
+checkpoint n=1000000000000 T=26568322474 pi=37607912018 2T-pi=15528732930
+N=1000000000000 T(N)=26568322474 pi(N)=37607912018
+min over 1<=n<=N of 2T(n)-pi(n) = 0, attained at 1 n (first in each segment listed): 7
+real 5380.56
+user 30228.03
+sys 145.15
