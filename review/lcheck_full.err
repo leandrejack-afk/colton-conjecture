@@ -1,0 +1,6 @@
+generators: 413980
+queries: 23595927 sieve, 956 primecount
+own sieve: pi(1000000000000) = 37607912018
+real 950.63
+user 1730.12
+sys 8.35

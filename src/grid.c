@@ -11,15 +11,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <errno.h>
 #include <primecount.h>
 
 // Parse a nonnegative integer given either as digits or in the form "<int>e<exp>" (e.g. 1e9, 2e13).
+// Rejects signs, junk and anything that does not fit in 64 bits.
 static uint64_t parse_u64(const char *s) {
+  if (*s < '0' || *s > '9') { fprintf(stderr, "bad number: %s\n", s); exit(1); }
   char *end;
+  errno = 0;
   uint64_t m = strtoull(s, &end, 10);
+  if (errno) { fprintf(stderr, "number out of range: %s\n", s); exit(1); }
   if (*end == 'e' || *end == 'E') {
+    if (end[1] < '0' || end[1] > '9') { fprintf(stderr, "bad number: %s\n", s); exit(1); }
     long e = strtol(end + 1, &end, 10);
-    while (e-- > 0) m *= 10;
+    while (e-- > 0) {
+      if (m > UINT64_MAX / 10) { fprintf(stderr, "number out of range: %s\n", s); exit(1); }
+      m *= 10;
+    }
   }
   if (*end != 0) { fprintf(stderr, "bad number: %s\n", s); exit(1); }
   return m;

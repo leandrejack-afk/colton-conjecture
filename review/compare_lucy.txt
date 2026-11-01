@@ -1,0 +1,31 @@
+primecount grid: rows checked by Lucy 56/56, mismatches 0
+dusart row 0: L/LD = 1.004682, pi/hi = 0.997735, true 2L-pi = 4168403
+dusart row 1: L/LD = 1.004646, pi/hi = 0.997733, true 2L-pi = 5476533
+dusart row 2: L/LD = 1.004596, pi/hi = 0.997734, true 2L-pi = 7201951
+dusart row 3: L/LD = 1.004549, pi/hi = 0.997733, true 2L-pi = 9507059
+dusart row 4: L/LD = 1.004503, pi/hi = 0.997733, true 2L-pi = 12588039
+dusart row 5: L/LD = 1.004455, pi/hi = 0.997735, true 2L-pi = 16697871
+dusart row 6: L/LD = 1.004405, pi/hi = 0.997738, true 2L-pi = 22192924
+dusart row 7: L/LD = 1.004359, pi/hi = 0.997739, true 2L-pi = 29578105
+dusart row 8: L/LD = 1.004310, pi/hi = 0.997745, true 2L-pi = 39443190
+dusart row 9: L/LD = 1.004260, pi/hi = 0.997749, true 2L-pi = 52670209
+dusart row 10: L/LD = 1.004171, pi/hi = 0.997753, true 2L-pi = 70001695
+dusart row 11: L/LD = 1.004078, pi/hi = 0.997758, true 2L-pi = 92997364
+dusart row 12: L/LD = 1.003973, pi/hi = 0.997763, true 2L-pi = 123349346
+dusart row 13: L/LD = 1.003866, pi/hi = 0.997769, true 2L-pi = 163544172
+dusart row 14: L/LD = 1.003759, pi/hi = 0.997776, true 2L-pi = 216770463
+dusart row 15: L/LD = 1.003653, pi/hi = 0.997782, true 2L-pi = 287236202
+dusart row 16: L/LD = 1.003542, pi/hi = 0.997789, true 2L-pi = 379916876
+dusart row 17: L/LD = 1.003435, pi/hi = 0.997796, true 2L-pi = 502364941
+dusart row 18: L/LD = 1.003330, pi/hi = 0.997804, true 2L-pi = 663663208
+dusart row 19: L/LD = 1.003227, pi/hi = 0.997811, true 2L-pi = 875722946
+dusart row 20: L/LD = 1.003125, pi/hi = 0.997819, true 2L-pi = 1153933360
+dusart row 21: L/LD = 1.003029, pi/hi = 0.997827, true 2L-pi = 1519626846
+dusart row 22: L/LD = 1.002934, pi/hi = 0.997835, true 2L-pi = 1997643426
+dusart row 23: L/LD = 1.002840, pi/hi = 0.997843, true 2L-pi = 2620767251
+dusart row 24: L/LD = 1.002748, pi/hi = 0.997852, true 2L-pi = 3432702416
+dusart grid: rows checked 25/25, inconsistencies 0
+x=1e9: L=32574263 pi=50847534 2L/pi=1.2813
+x=1e13: L=233021529768 pi=346065536839 2L/pi=1.3467
+x=1e14: L=2116017614479 pi=3204941750802 2L/pi=1.3205
+x=1e15: L=19250635001899 pi=29844570422669 2L/pi=1.2901

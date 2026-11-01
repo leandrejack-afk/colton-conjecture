@@ -1,0 +1,7 @@
+Y=20000000000 pi(Y)=882206716
+lower  pi(y) >= y/(ln y - 1), y>=5393:   min rel slack 5.778e-05 at prime 5399; last failing prime (any range) 5387
+upper  pi(y) <= y/(ln y - 1.1), y>=60184: min rel slack 3.935e-06 at 60184; last failing point (any range) 60169
+RS3.5  pi(y) > y/ln y, y>=17:            min rel slack 4.502e-02 at prime 29; last failing prime 13
+real 171.57
+user 104.67
+sys 0.47
