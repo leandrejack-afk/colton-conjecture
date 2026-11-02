@@ -1,0 +1,206 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\GZ}{G_{\mathrm{Z}}}
+
+\title{A proof of Colton's conjecture on refactorable numbers}
+\author{Leandre Jack\\[2pt] \small Independent researcher, Georgetown, Guyana}
+\date{1 November 2026\\[2pt] \small doi:\href{https://doi.org/10.5281/zenodo.23874061}{10.5281/zenodo.23874061}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A positive integer is refactorable (a tau number) if it is divisible by its number of divisors. Let $T(x)$ count the refactorable numbers up to $x$ and $\pi(x)$ the primes up to $x$. In 1999 Colton conjectured that $\pi(n) \le 2T(n)$ for every $n$, and in 2002 Zelinsky proved this for $n > 7.42\cdot 10^{13}$. We prove it for every positive integer $n$, with equality only at $n = 7$. The proof combines an exact computation for $n \le 10^{10}$, a lower bound for $T(x)$ built from Zelinsky's generators and evaluated with Dusart's explicit bounds for $\pi(x)$ on $[10^{10}, 2.07\cdot 10^{13}]$, and a short analytic argument for $x \ge 2\cdot 10^{13}$. Every computation in the proof of the main theorem was repeated by a second, separately written implementation. We also find $T(10^{12}) = 26{,}568{,}322{,}474$.
+\end{abstract}
+
+\section{Introduction}
+
+Let $\tau(n)$ be the number of divisors of $n$. A positive integer $n$ is \emph{refactorable}, or a \emph{tau number}, if $\tau(n) \mid n$. The sequence begins
+\[
+1,\ 2,\ 8,\ 9,\ 12,\ 18,\ 24,\ 36,\ 40,\ 56,\ 60,\ 72,\ 80,\ 84,\ 88,\ 96,\ \dots
+\]
+(OEIS A033950). These numbers were studied by Spiro \cite{Sp} and by Kennedy and Cooper \cite{KC}, who called them tau numbers, and Colton's theory formation program HR reinvented them \cite{Co}. Write
+\[
+T(x) = \#\{\, n \le x : \tau(n) \mid n \,\}, \qquad \pi(x) = \#\{\, p \le x : p \text{ prime} \,\}.
+\]
+From a table of these counts, Colton observed \cite[Section~2.3]{Co} that ``it appears that the number of refactorables is always at least half the number of primes''. In the form stated by Zelinsky \cite{Ze}, the conjecture is
+\begin{equation}\label{eq:conj}
+\pi(n) \le 2\,T(n) \qquad \text{for every integer } n \ge 1.
+\end{equation}
+Zelinsky proved \eqref{eq:conj} for $n > 7.42\cdot 10^{13}$ \cite[Theorem~22]{Ze}. The remaining range was open; the statement is listed as open, under the name \texttt{colton\_conjecture}, in the formal-conjectures collection \cite{FC}.
+
+\begin{theorem}\label{thm:main}
+For every integer $n \ge 1$, $\pi(n) \le 2\,T(n)$, with equality only for $n = 7$.
+\end{theorem}
+
+At $n = 7$ there are four primes ($2, 3, 5, 7$) and two tau numbers ($1, 2$). The proof has three overlapping parts: an exact computation for $n \le 10^{10}$ (Section~\ref{sec:part1}), a finite chain of explicit inequalities covering $[10^{10}, 2.07\cdot 10^{13}]$ (Section~\ref{sec:part2}), and an analytic argument for $x \ge 2\cdot 10^{13}$ (Section~\ref{sec:part3}). Parts 2 and 3 use only Zelinsky's generator lemma, two explicit bounds of Dusart for $\pi$, and exact values of $\pi$ below $8\cdot 10^5$ from a sieve; no prime-counting software is used in the proof.
+
+\section{Generators and a lower bound for $T$}
+
+\begin{lemma}[Zelinsky {\cite[Lemma~18]{Ze}}]\label{lem:gen}
+If $2\tau(k) \mid k$ and $p$ is a prime with $p \nmid k$, then $kp$ is a tau number.
+\end{lemma}
+
+\begin{proof}
+$\tau(kp) = 2\tau(k)$, which divides $k$ and hence $kp$.
+\end{proof}
+
+Integers $k$ with $2\tau(k) \mid k$ are called \emph{generators}; the smallest are $8, 12, 36, 72, 80, 96, 128, 180$. For instance $8p$ is a tau number for every odd prime $p$. For a generator $k$ let $g(k)$ denote its largest prime factor.
+
+\begin{lemma}[cf.\ {\cite[Lemma~20]{Ze}}]\label{lem:lower}
+Let $G$ be a finite set of generators. For every real $x \ge 1$,
+\[
+T(x) \ \ge\ 1 + L_G(x), \qquad L_G(x) = \sum_{k \in G} \max\bigl(0,\ \pi(x/k) - \pi(g(k))\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $k \in G$ and let $p$ be a prime with $g(k) < p \le x/k$. Then $p \nmid k$, so $kp \le x$ is a tau number by Lemma~\ref{lem:gen}. The prime $p$ is the largest prime factor of $kp$, so $kp$ determines $p$ and then $k$; hence all these products are distinct. For fixed $k$ there are $\max(0, \pi(x/k) - \pi(g(k)))$ such primes. Finally, $1$ is a tau number that is not of the form $kp$.
+\end{proof}
+
+Throughout, $\GZ$ is the set of all generators $k \le K = 28{,}653{,}696$, the set used by Zelinsky \cite[Theorem~22]{Ze}. (He uses ``all the $p$-generators less than or equal to 28653696'' and counts ``exactly 413980 $p$-generators less than 28653696''; since $28{,}653{,}696 = 2^7 \cdot 3^3 \cdot 8291$ is itself a generator, 413,980 is the number of generators $k \le K$.) It has $413{,}980$ elements, and
+\[
+A = \sum_{k \in \GZ} \frac1k = 0.508000047\ldots > 0.508, \qquad B = \sum_{k \in \GZ} \pi(g(k)) = 3{,}348{,}506{,}095 .
+\]
+$A$ was bounded below by an exact rational, and $B$ was computed exactly from a prime sieve.
+
+\section{Part 1: \texorpdfstring{$n \le 10^{10}$}{n <= 10^10}}\label{sec:part1}
+
+For every $n \le 10^{10}$ we computed $\tau(n)$ with a segmented sieve: each $n$ in a segment is divided by the primes up to $10^5$, and the cofactor that remains is $1$ or a prime. Then $n$ is prime if and only if $\tau(n) = 2$, and a tau number if and only if $\tau(n) \mid n$, so $T(n)$ and $\pi(n)$ are known exactly for every $n$. The function $2T(n) - \pi(n)$ can decrease only at odd primes ($2$ is both prime and a tau number, and an odd prime $p$ is not a tau number since $\tau(p) = 2$), so its minimum over $1 \le n \le N$ is attained at $n = 1$ or at a prime, and it suffices to evaluate it at every prime. Over $1 \le n \le 10^{10}$ the minimum is $0$, attained only at $n = 7$.
+
+A second program, written independently, computes $\tau(n)$ without factoring: for each $d \le \sqrt N$ it adds $1$ at $n = d^2$ and $2$ at every multiple $n > d^2$ of $d$. It gives the same counts and the same minimum, and it reports that the minimum over $8 \le n \le 10^{10}$ is $2$. Both programs were also run to $10^{12}$, where the minimum is again $0$, attained only at $n = 7$; Table~\ref{tab:counts} lists the counts at powers of ten. The values of $T(10^k)$ for $k \le 11$ agree with OEIS A111291, which ends at $k = 11$; $T(10^{12}) = 26{,}568{,}322{,}474$ extends it. As a check on the second program, its total $\sum_{n \le 10^{12}} \tau(n) = 27{,}785{,}452{,}449{,}086$ equals $2\sum_{k \le 10^6} \lfloor 10^{12}/k \rfloor - 10^{12}$.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrr}
+\toprule
+$k$ & $T(10^k)$ & $\pi(10^k)$ & $2T(10^k) - \pi(10^k)$ \\
+\midrule
+1 & 4 & 4 & 4 \\
+2 & 16 & 25 & 7 \\
+3 & 92 & 168 & 16 \\
+4 & 665 & 1{,}229 & 101 \\
+5 & 5{,}257 & 9{,}592 & 922 \\
+6 & 44{,}705 & 78{,}498 & 10{,}912 \\
+7 & 394{,}240 & 664{,}579 & 123{,}901 \\
+8 & 3{,}558{,}181 & 5{,}761{,}455 & 1{,}354{,}907 \\
+9 & 32{,}608{,}999 & 50{,}847{,}534 & 14{,}370{,}464 \\
+10 & 302{,}172{,}507 & 455{,}052{,}511 & 149{,}292{,}503 \\
+11 & 2{,}823{,}898{,}245 & 4{,}118{,}054{,}813 & 1{,}529{,}741{,}677 \\
+12 & 26{,}568{,}322{,}474 & 37{,}607{,}912{,}018 & 15{,}528{,}732{,}930 \\
+\bottomrule
+\end{tabular}
+\caption{Counts of tau numbers and primes up to $10^k$, from both programs.}\label{tab:counts}
+\end{table}
+
+\section{Part 2: \texorpdfstring{$10^{10} \le n \le 2.07\cdot 10^{13}$}{10^10 <= n <= 2.07*10^13}}\label{sec:part2}
+
+We use two explicit bounds of Dusart \cite[Theorem~6.9, (6.6)]{Du10} (a revised version of that preprint is \cite{Du18}):
+\begin{align}
+\pi(y) &\ge \frac{y}{\ln y - 1} && \text{for real } y \ge 5393, \label{eq:lo}\\
+\pi(y) &\le \frac{y}{\ln y - 1.1} && \text{for real } y \ge 60184. \label{eq:hi}
+\end{align}
+For $y \ge 1.91\cdot 10^{10}$ both also follow from Axler \cite[Theorems~1.2 and~1.3]{Ax}. In addition, \eqref{eq:lo} was verified numerically for every real $y$ in $[5393, 2\cdot 10^{10}]$, and \eqref{eq:hi} for every real $y$ in $[60184, 2\cdot 10^{10}]$.
+
+Let $\mathrm{lo}(y) = y/(\ln y - 1)$ for $y \ge 5393$ and $\mathrm{lo}(y) = \pi(y)$ for $1 \le y < 5393$, let $U(y) = y/(\ln y - 1.1)$, and define
+\[
+L_D(x) = \sum_{k \in \GZ} \max\bigl(0,\ \mathrm{lo}(x/k) - \pi(g(k))\bigr).
+\]
+By \eqref{eq:lo}, $\mathrm{lo}(y) \le \pi(y)$ for $y \ge 1$, so $L_D(x) \le L_{\GZ}(x) < T(x)$ by Lemma~\ref{lem:lower}. (For $x \ge 10^{10}$ and $k \le K$, $x/k > 348$.)
+
+\begin{lemma}\label{lem:grid}
+There are integers $10^{10} = x_0 < x_1 < \dots < x_{25} = 20{,}723{,}943{,}136{,}807$ with
+\[
+U(x_{i+1}) \le 2\,L_D(x_i) \qquad (0 \le i \le 24).
+\]
+\end{lemma}
+
+The $x_i$ are listed in the accompanying data (file \texttt{results/dusart\_grid\_1e10\_2e13.csv}); consecutive ratios $x_{i+1}/x_i$ lie between $1.33$ and $1.37$. Each inequality was checked in decimal arithmetic with 50 significant digits and a relative safety margin of $10^{-30}$ on each side, and all of them were checked again by a second, separately written implementation.
+
+For $x_i \le n \le x_{i+1}$, since $x_{i+1} \ge 60184$, \eqref{eq:hi} and Lemma~\ref{lem:lower} give
+\[
+\pi(n) \le \pi(x_{i+1}) \le U(x_{i+1}) \le 2L_D(x_i) < 2T(x_i) \le 2T(n).
+\]
+Hence $\pi(n) < 2T(n)$ for $10^{10} \le n \le 20{,}723{,}943{,}136{,}807$.
+
+\section{Part 3: \texorpdfstring{$x \ge 2\cdot 10^{13}$}{x >= 2*10^13}}\label{sec:part3}
+
+Let $x \ge 2\cdot 10^{13}$ and $l = \ln x$. For $k \in \GZ$ we have $x/k \ge 2\cdot 10^{13}/K > 6.9\cdot 10^{5}$, so by \eqref{eq:lo} and $0 < \ln(x/k) - 1 \le l - 1$,
+\[
+\pi(x/k) \ \ge\ \frac{x/k}{\ln(x/k) - 1} \ \ge\ \frac{x}{k\,(l - 1)} .
+\]
+Summing over $\GZ$ and using Lemma~\ref{lem:lower} and \eqref{eq:hi},
+\[
+2T(x) - \pi(x) \ >\ 2L_{\GZ}(x) - \pi(x) \ \ge\ \frac{2Ax}{l - 1} - 2B - \frac{x}{l - 1.1} \ =\ F(x) - 2B,
+\]
+where
+\[
+F(x) = \frac{x\,N(l)}{(l - 1)(l - 1.1)}, \qquad N(l) = A\,(2l - 2.2) - l + 1 .
+\]
+$F$ increases with $A$, so we may use $A = 0.508$. Then $N(l) = 0.016\,l - 0.1176$, which is positive for $l > 7.35$. Since $x = e^{l}$, for $l \ge 30$
+\[
+\frac{d \ln F}{d l} = 1 + \frac{2A - 1}{N(l)} - \frac{1}{l - 1} - \frac{1}{l - 1.1} > 1 - 0.07 > 0,
+\]
+because $2A - 1 > 0$ and $N(l) > 0$. So $F$ is increasing for $x \ge 2\cdot 10^{13}$ (where $l > 30.6$), and
+\[
+F(x) \ \ge\ F(2\cdot 10^{13}) \ >\ 8.51\cdot 10^{9} \ >\ 2B = 6{,}697{,}012{,}190 .
+\]
+Hence $\pi(x) < 2T(x)$ for every real $x \ge 2\cdot 10^{13}$. (With this set of generators the argument fails at $x = 10^{13}$, which is why Part 2 is needed.)
+
+\medskip
+Parts 1 to 3 cover $[1, 10^{10}]$, $[10^{10}, 2.07\cdot 10^{13}]$ and $[2\cdot 10^{13}, \infty)$, and equality occurs only at $n = 7$. This proves Theorem~\ref{thm:main}. \qed
+
+\begin{corollary}
+$T(x) \ge x/(2\ln x)$ for every real $x \ge 2$.
+\end{corollary}
+
+\begin{proof}
+For $x \ge 599$, Dusart \cite[(6.5)]{Du10} gives $\pi(x) \ge (x/\ln x)(1 + 1/\ln x) > x/\ln x$, so $T(x) \ge \pi(x)/2 > x/(2\ln x)$ by Theorem~\ref{thm:main}. For $2 \le x < 700$ the inequality was checked directly on every interval $[m, m+1)$; the closest case is $x$ just below $8$, where $T(x) = 2$ and $x/(2\ln x)$ approaches $8/(2\ln 8) \approx 1.924$.
+\end{proof}
+
+\begin{remark}
+Colton also wrote the conjecture as ``the number of refactorables less than $x$ is at least $x/(2\log x)$''. With ``less than'' read strictly, this fails at $x = 2$ (only $1$ is a refactorable number below $2$) and holds for every real $x > 2$, by taking left limits in the corollary.
+\end{remark}
+
+\section{Verification}
+
+\begin{itemize}
+\item Part 1 was computed by two programs that share no code (the factoring sieve and the divisor-pair count), which agree at every checkpoint up to $10^{12}$.
+\item The generator list was produced by trial division, derived again with a divisor-count sieve, and enumerated a third time by the second model session (see Use of AI); the lists agree, and the values of $g(k)$ were confirmed with a largest-prime-factor sieve.
+\item Every inequality of Lemma~\ref{lem:grid} was recomputed by a separate implementation.
+\item In Part 3, $A$ is bounded below by an exact rational, $B$ comes from a separate prime sieve, and $\ln x$ was enclosed in an interval of width $2\cdot 10^{-70}$.
+\item As a cross-check not used in the proof, the inequality $\pi(x_{i+1}) \le 2L_{\GZ}(x_i)$ was verified with exact prime counts (primecount \cite{Wa}) on a 57-point grid from $10^9$ to $1.1\cdot 10^{16}$, and every value there was reproduced by a prime count that uses no library, and those up to $10^{12}$ also by an independent sieve.
+\item Zelinsky's constants check out: the generator count and $A$ match his Theorem~22, and his bound $B < 8{,}694{,}520{,}815$ holds (the true value of $\sum_{k} (\pi(g(k)) + 1)$ is $3{,}348{,}920{,}075$).
+\end{itemize}
+
+\section*{Use of AI}
+
+This work was carried out with the assistance of a large language model. The model proposed the approach (evaluating Zelinsky's generator bound with exact and explicit prime counts, and closing the tail with Dusart's bounds), wrote all programs, ran the computations and drafted this note. A second, separate session of the model wrote its own programs, reading the first programs only after most of its own results were in, and reviewed the argument; its report and programs are part of the accompanying archive. The author initiated the project and takes responsibility for its publication.
+
+\section*{Data availability}
+
+The programs, their outputs, the list of generators and the second session's review report are archived with this note (doi:\href{https://doi.org/10.5281/zenodo.23874061}{10.5281/zenodo.23874061}). The same programs, outputs and report are at \url{https://github.com/leandrejack-afk/colton-conjecture}, which holds the SHA-256 of the generator list and the program that regenerates it.
+
+\begin{thebibliography}{99}
+\bibitem{Ax} C. Axler, \emph{New estimates for some functions defined over primes}, arXiv:1703.08032.
+\bibitem{Co} S. Colton, \emph{Refactorable numbers: a machine invention}, J. Integer Seq. \textbf{2} (1999), Article 99.1.2.
+\bibitem{Du10} P. Dusart, \emph{Estimates of some functions over primes without R.H.}, arXiv:1002.0442 (2010).
+\bibitem{Du18} P. Dusart, \emph{Explicit estimates of some functions over primes}, Ramanujan J. \textbf{45} (2018), 227--251.
+\bibitem{FC} Google DeepMind, \emph{formal-conjectures}, file \texttt{FormalConjectures/OEIS/111291.lean}, \url{https://github.com/google-deepmind/formal-conjectures}.
+\bibitem{KC} R. E. Kennedy and C. N. Cooper, \emph{Tau numbers, natural density, and Hardy and Wright's Theorem 437}, Internat. J. Math. Math. Sci. \textbf{13} (1990), 383--386.
+\bibitem{Sp} C. Spiro, \emph{How often is the number of divisors of $n$ a divisor of $n$?}, J. Number Theory \textbf{21} (1985), 81--100.
+\bibitem{Wa} K. Walisch, \emph{primecount}, version 8.8, \url{https://github.com/kimwalisch/primecount}.
+\bibitem{Ze} J. Zelinsky, \emph{Tau numbers: a partial proof of a conjecture and other results}, J. Integer Seq. \textbf{5} (2002), Article 02.2.8.
+\end{thebibliography}
+
+\end{document}

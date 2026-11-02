@@ -2,9 +2,11 @@
 
 By Leandre Jack, with programs written and run with the assistance of a large language model.
 
+Write-up: *A proof of Colton's conjecture on refactorable numbers*, a preprint on Zenodo, [doi:10.5281/zenodo.23874061](https://doi.org/10.5281/zenodo.23874061) (LaTeX source in `paper/`). The Zenodo record also archives this code, its outputs and the list of generators.
+
 A positive integer n is a *tau number* (refactorable number) if its number of divisors, tau(n), divides n: 1, 2, 8, 9, 12, 18, 24, ... ([OEIS A033950](https://oeis.org/A033950)). Write T(x) for the number of tau numbers up to x and pi(x) for the number of primes up to x.
 
-In 1999 Simon Colton observed from his tables that "the number of refactorables is always at least half the number of primes" ([J. Integer Seq. 2 (1999), Article 99.1.2](https://cs.uwaterloo.ca/journals/JIS/colton/joisol.html)). In 2002 Joshua Zelinsky proved this for every n > 7.42 x 10^13 ([J. Integer Seq. 5 (2002), Article 02.2.8](https://cs.uwaterloo.ca/journals/JIS/VOL5/Zelinsky/zelinsky9.html), Theorem 8); the range below was left open, and the statement is listed as open in [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/OEIS/111291.lean) (`colton_conjecture`).
+In 1999 Simon Colton observed from his tables that "the number of refactorables is always at least half the number of primes" ([J. Integer Seq. 2 (1999), Article 99.1.2](https://cs.uwaterloo.ca/journals/JIS/colton/joisol.html)). In 2002 Joshua Zelinsky proved this for every n > 7.42 x 10^13 ([J. Integer Seq. 5 (2002), Article 02.2.8](https://cs.uwaterloo.ca/journals/JIS/VOL5/Zelinsky/zelinsky9.html), Theorem 22); the range below was left open, and the statement is listed as open in [google-deepmind/formal-conjectures](https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/OEIS/111291.lean) (`colton_conjecture`).
 
 ## Result
 
@@ -14,7 +16,7 @@ Consequently T(x) >= x / (2 log x) for every real x >= 2: for x >= 599 by Dusart
 
 ## Proof
 
-**Generators.** Call k a generator if 2 tau(k) divides k (Zelinsky, Lemma 6): 8, 12, 36, 72, 80, 96, 128, 180, ... For a generator k and any prime p not dividing k, tau(kp) = 2 tau(k) divides kp, so kp is a tau number.
+**Generators.** Call k a generator if 2 tau(k) divides k (Zelinsky, Lemma 18): 8, 12, 36, 72, 80, 96, 128, 180, ... For a generator k and any prime p not dividing k, tau(kp) = 2 tau(k) divides kp, so kp is a tau number.
 
 **Lower bound.** Let G be a finite set of generators and g(k) the largest prime factor of k. The pairs (k, p) with k in G, p prime and g(k) < p <= x/k give distinct tau numbers kp <= x (p is the largest prime factor of kp and occurs once, so kp determines p and k), and none of them is 1. Hence
 
@@ -39,7 +41,7 @@ The three ranges overlap and cover every n >= 1. The proof uses no prime-countin
 ## Checks
 
 - T(10^k) for k = 0..11 agrees with [OEIS A111291](https://oeis.org/A111291); T(10^12) = 26,568,322,474 is new, and two independent programs agree on it.
-- The generator count 413,980 and A > 0.508 reproduce Zelinsky's Theorem 8 numbers exactly; his bound B < 8,694,520,815 holds (the true sum of pi(g(k)) + 1 is 3,348,920,075).
+- The generator count 413,980 and A > 0.508 reproduce Zelinsky's Theorem 22 numbers exactly; his bound B < 8,694,520,815 holds (the true sum of pi(g(k)) + 1 is 3,348,920,075).
 - The lower bound L is tight: L(10^11) = 2,785,736,202 against T(10^11) = 2,823,898,245.
 - An independent referee re-implemented the computations without seeing these programs (a factorization-free divisor-pair sieve, two enumerations of the generators, its own prime sieve and a library-free Lucy_Hedgehog prime count, Dusart's bounds checked numerically to 2 x 10^10): verdict sound, with minor edits that have been made. Report and programs: `review/REVIEW.md`.
 
