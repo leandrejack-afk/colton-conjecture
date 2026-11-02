@@ -1,0 +1,44 @@
+low: n=1 2T-pi=2
+low: n=2 2T-pi=3
+low: n=3 2T-pi=2
+low: n=4 2T-pi=2
+low: n=5 2T-pi=1
+low: n=6 2T-pi=1
+low: n=7 2T-pi=0
+low: n=8 2T-pi=2
+low: n=11 2T-pi=3
+low: n=17 2T-pi=3
+low: n=23 2T-pi=3
+low: n=31 2T-pi=3
+low: n=32 2T-pi=3
+low: n=33 2T-pi=3
+low: n=34 2T-pi=3
+low: n=35 2T-pi=3
+low: n=47 2T-pi=3
+low: n=48 2T-pi=3
+low: n=49 2T-pi=3
+low: n=50 2T-pi=3
+low: n=51 2T-pi=3
+low: n=52 2T-pi=3
+low: n=53 2T-pi=2
+low: n=54 2T-pi=2
+low: n=55 2T-pi=2
+low: n=59 2T-pi=3
+low: n=67 2T-pi=3
+low: n=68 2T-pi=3
+low: n=69 2T-pi=3
+low: n=70 2T-pi=3
+low: n=71 2T-pi=2
+low: n=73 2T-pi=3
+low: n=74 2T-pi=3
+low: n=75 2T-pi=3
+low: n=76 2T-pi=3
+low: n=77 2T-pi=3
+low: n=78 2T-pi=3
+low: n=79 2T-pi=2
+low: n=83 2T-pi=3
+low: n=439 2T-pi=3
+low: n=440 2T-pi=3
+real 5914.25
+user 36134.76
+sys 239.76

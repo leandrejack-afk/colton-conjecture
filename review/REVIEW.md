@@ -76,3 +76,7 @@ QUESTIONS:
 | `part3_check.py` | tail numbers, crossover, monotonicity, corollary on [2, 700) | 1 s |
 | `lemma2_bruteforce.py` | Lemma 2 at 2e6 | 10 s |
 | `crosscheck_bigargs.py` | optional: primecount CLI with another algorithm on `bigargs.txt` | not run (Lucy covers it) |
+
+## Addendum (added by the author after the review, 1 Nov 2026)
+
+The referee's `part1_divpairs.c` was later run to 10^12 (`review/part1_1e12.txt`, `review/part1_1e12.err`, 99 min on 8 threads). It gives T(10^12) = 26,568,322,474 and pi(10^12) = 37,607,912,018, matching `runs/pointwise_1e12.txt`, and the minimum of 2T(n) - pi(n) is again 0 only at n = 7. Its divisor total D(10^12) = 27,785,452,449,086 equals 2 sum_{k <= 10^6} floor(10^12/k) - 10^12. This settles the "Not verified: T(10^12)" item above.
